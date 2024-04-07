@@ -2,6 +2,10 @@ export function getFilename(context) {
   return context.filename ?? context.getFilename();
 }
 
+export function getPhysicalFilename(context) {
+  return context.getPhysicalFilename?.() ?? getFilename(context);
+}
+
 export function getSourceCode(context) {
   return context.sourceCode ?? context.getSourceCode();
 }

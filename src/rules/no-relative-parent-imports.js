@@ -4,7 +4,7 @@ import { basename, dirname, relative } from 'path';
 import resolve from 'eslint-module-utils/resolve';
 
 import importType from '../core/importType';
-import { getFilename } from '../context';
+import { getPhysicalFilename } from '../context';
 
 module.exports = {
   meta: {
@@ -18,7 +18,7 @@ module.exports = {
   },
 
   create: function noRelativePackages(context) {
-    const myPath = context.getPhysicalFilename ? context.getPhysicalFilename() : getFilename(context);
+    const myPath = getPhysicalFilename(context);
     if (myPath === '<text>') { return {}; } // can't check a non-file
 
     function checkSourceValue(sourceNode) {

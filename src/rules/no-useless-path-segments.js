@@ -8,7 +8,7 @@ import moduleVisitor from 'eslint-module-utils/moduleVisitor';
 import resolve from 'eslint-module-utils/resolve';
 import path from 'path';
 import docsUrl from '../docsUrl';
-import { getFilename } from '../context';
+import { getPhysicalFilename } from '../context';
 
 /**
  * convert a potentially relative path from node utils into a true
@@ -61,7 +61,7 @@ module.exports = {
   },
 
   create(context) {
-    const currentDir = path.dirname(context.getPhysicalFilename ? context.getPhysicalFilename() : getFilename(context));
+    const currentDir = path.dirname(getPhysicalFilename(context));
     const options = context.options[0];
 
     function checkSourceValue(source) {

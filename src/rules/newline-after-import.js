@@ -7,7 +7,8 @@ import isStaticRequire from '../core/staticRequire';
 import docsUrl from '../docsUrl';
 
 import debug from 'debug';
-import { getFilename, getScope } from '../context';
+import { getPhysicalFilename, getScope } from '../context';
+
 const log = debug('eslint-plugin-import:rules:newline-after-import');
 
 //------------------------------------------------------------------------------
@@ -194,7 +195,7 @@ module.exports = {
         }
       },
       'Program:exit'() {
-        log('exit processing for', context.getPhysicalFilename ? context.getPhysicalFilename() : getFilename(context));
+        log('exit processing for', getPhysicalFilename(context));
 
         requireCalls.forEach((node, index) => {
           // todo: this probably isn't correct...

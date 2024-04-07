@@ -8,7 +8,7 @@ import ExportMapBuilder from '../exportMap/builder';
 import { isExternalModule } from '../core/importType';
 import moduleVisitor, { makeOptionsSchema } from 'eslint-module-utils/moduleVisitor';
 import docsUrl from '../docsUrl';
-import { getFilename } from '../context';
+import { getPhysicalFilename } from '../context';
 
 const traversed = new Set();
 
@@ -52,7 +52,7 @@ module.exports = {
   },
 
   create(context) {
-    const myPath = context.getPhysicalFilename ? context.getPhysicalFilename() : getFilename(context);
+    const myPath = getPhysicalFilename(context);
     if (myPath === '<text>') { return {}; } // can't cycle-check a non-file
 
     const options = context.options[0] || {};

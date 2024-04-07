@@ -5,7 +5,7 @@ exports.__esModule = true;
 const fs = require('fs');
 const Module = require('module');
 const path = require('path');
-const { getFilename } = require('../src/context');
+const { getPhysicalFilename } = require('../src/context');
 
 const hashObject = require('./hash').hashObject;
 const ModuleCache = require('./ModuleCache').default;
@@ -230,7 +230,7 @@ const erroredContexts = new Set();
  */
 function resolve(p, context) {
   try {
-    return relative(p, context.getPhysicalFilename ? context.getPhysicalFilename() : getFilename(context), context.settings);
+    return relative(p, getPhysicalFilename(context), context.settings);
   } catch (err) {
     if (!erroredContexts.has(context)) {
       // The `err.stack` string starts with `err.name` followed by colon and `err.message`.

@@ -1,23 +1,53 @@
 export function getFilename(context) {
-  return context.filename ?? context.getFilename();
+  if ('filename' in context) {
+    return context.filename;
+  }
+
+  return context.getFilename();
 }
 
 export function getPhysicalFilename(context) {
-  return context.getPhysicalFilename?.() ?? getFilename(context);
+  if (context.getPhysicalFilename) {
+    return context.getPhysicalFilename();
+  }
+
+  return getFilename(context);
 }
 
 export function getSourceCode(context) {
-  return context.sourceCode ?? context.getSourceCode();
+  if ('sourceCode' in context) {
+    return context.sourceCode;
+  }
+
+  return context.getSourceCode();
 }
 
 export function getScope(context, node) {
-  return getSourceCode(context).getScope?.(node) ?? context.getScope();
+  const sourceCode = getSourceCode(context);
+
+  if (sourceCode && sourceCode.getScope) {
+    return sourceCode.getScope(node);
+  }
+
+  return context.getScope();
 }
 
 export function getAncestors(context, node) {
-  return getSourceCode(context).getAncestors?.(node) ?? context.getAncestors();
+  const sourceCode = getSourceCode(context);
+
+  if (sourceCode && sourceCode.getAncestors) {
+    return sourceCode.getAncestors(node);
+  }
+
+  return context.getAncestors();
 }
 
 export function getDeclaredVariables(context, node) {
-  return getSourceCode(context).getDeclaredVariables?.(node) ?? context.getDeclaredVariables(node);
+  const sourceCode = getSourceCode(context);
+
+  if (sourceCode && sourceCode.getDeclaredVariables) {
+    return sourceCode.getDeclaredVariables(node);
+  }
+
+  return context.getDeclaredVariables(node);
 }

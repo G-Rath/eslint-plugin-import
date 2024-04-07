@@ -1,5 +1,5 @@
 import docsUrl from '../docsUrl';
-import { getSourceCode } from '../context';
+import { getDeclaredVariables, getSourceCode } from '../context';
 
 function getImportValue(node) {
   return node.type === 'ImportDeclaration'
@@ -67,7 +67,7 @@ module.exports = {
               }
             }
             if (nonImportCount > 0) {
-              for (const variable of context.getDeclaredVariables(node)) {
+              for (const variable of getDeclaredVariables(context, node)) {
                 if (!shouldSort) { break; }
                 const references = variable.references;
                 if (references.length) {

@@ -5,6 +5,7 @@
 
 import minimatch from 'minimatch';
 import docsUrl from '../docsUrl';
+import { getSourceCode } from '../context';
 
 /**
  * @param {MemberExpression} memberExpression
@@ -118,7 +119,7 @@ module.exports = {
           node,
           message: `Unexpected namespace import.`,
           fix: canFix && ((fixer) => {
-            const scopeManager = context.getSourceCode().scopeManager;
+            const scopeManager = getSourceCode(context).scopeManager;
             const fixes = [];
 
             // Pass 1: Collect variable names that are already in scope for each reference we want

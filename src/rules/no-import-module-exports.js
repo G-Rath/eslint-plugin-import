@@ -1,6 +1,7 @@
 import minimatch from 'minimatch';
 import path from 'path';
 import pkgUp from 'eslint-module-utils/pkgUp';
+import { getSourceCode } from '../context';
 
 function getEntryPoint(context) {
   const pkgPath = pkgUp({ cwd: context.getPhysicalFilename ? context.getPhysicalFilename() : context.getFilename() });
@@ -14,7 +15,7 @@ function getEntryPoint(context) {
 }
 
 function findScope(context, identifier) {
-  const { scopeManager } = context.getSourceCode();
+  const { scopeManager } = getSourceCode(context);
 
   return scopeManager && scopeManager.scopes.slice().reverse().find((scope) => scope.variables.some((variable) => variable.identifiers.some((node) => node.name === identifier)));
 }

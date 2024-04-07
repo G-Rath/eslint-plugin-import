@@ -1,4 +1,4 @@
-export function getFilename(context) {
+function getFilename(context) {
   if ('filename' in context) {
     return context.filename;
   }
@@ -6,7 +6,7 @@ export function getFilename(context) {
   return context.getFilename();
 }
 
-export function getPhysicalFilename(context) {
+function getPhysicalFilename(context) {
   if (context.getPhysicalFilename) {
     return context.getPhysicalFilename();
   }
@@ -14,7 +14,7 @@ export function getPhysicalFilename(context) {
   return getFilename(context);
 }
 
-export function getSourceCode(context) {
+function getSourceCode(context) {
   if ('sourceCode' in context) {
     return context.sourceCode;
   }
@@ -22,7 +22,7 @@ export function getSourceCode(context) {
   return context.getSourceCode();
 }
 
-export function getScope(context, node) {
+function getScope(context, node) {
   const sourceCode = getSourceCode(context);
 
   if (sourceCode && sourceCode.getScope) {
@@ -32,7 +32,7 @@ export function getScope(context, node) {
   return context.getScope();
 }
 
-export function getAncestors(context, node) {
+function getAncestors(context, node) {
   const sourceCode = getSourceCode(context);
 
   if (sourceCode && sourceCode.getAncestors) {
@@ -42,7 +42,7 @@ export function getAncestors(context, node) {
   return context.getAncestors();
 }
 
-export function getDeclaredVariables(context, node) {
+function getDeclaredVariables(context, node) {
   const sourceCode = getSourceCode(context);
 
   if (sourceCode && sourceCode.getDeclaredVariables) {
@@ -51,3 +51,12 @@ export function getDeclaredVariables(context, node) {
 
   return context.getDeclaredVariables(node);
 }
+
+module.exports = {
+  getFilename,
+  getPhysicalFilename,
+  getSourceCode,
+  getScope,
+  getAncestors,
+  getDeclaredVariables,
+};

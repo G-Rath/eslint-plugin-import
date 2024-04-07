@@ -1,5 +1,5 @@
 import { SYNTAX_CASES, getTSParsers, parsers } from '../utils';
-import { RuleTester } from 'eslint';
+import { FlatCompatRuleTester as RuleTester } from '../rule-tester';
 import semver from 'semver';
 
 const rule = require('rules/dynamic-import-chunkname');

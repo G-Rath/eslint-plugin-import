@@ -1,6 +1,7 @@
 import { dirname } from 'path';
 import pkgUp from 'eslint-module-utils/pkgUp';
 import readPkgUp from 'eslint-module-utils/readPkgUp';
+import { getFilename } from '../context';
 
 export function getFilePackagePath(filePath) {
   const fp = pkgUp({ cwd: filePath });
@@ -8,7 +9,7 @@ export function getFilePackagePath(filePath) {
 }
 
 export function getContextPackagePath(context) {
-  return getFilePackagePath(context.getPhysicalFilename ? context.getPhysicalFilename() : context.getFilename());
+  return getFilePackagePath(context.getPhysicalFilename ? context.getPhysicalFilename() : getFilename(context));
 }
 
 export function getFilePackageName(filePath) {

@@ -16,6 +16,7 @@ import flatMap from 'array.prototype.flatmap';
 import ExportMapBuilder from '../exportMap/builder';
 import recursivePatternCapture from '../exportMap/patternCapture';
 import docsUrl from '../docsUrl';
+import { getFilename } from '../context';
 
 let FileEnumerator;
 let listFilesToProcess;
@@ -476,7 +477,7 @@ module.exports = {
       doPreparation(src, ignoreExports, context);
     }
 
-    const file = context.getPhysicalFilename ? context.getPhysicalFilename() : context.getFilename();
+    const file = context.getPhysicalFilename ? context.getPhysicalFilename() : getFilename(context);
 
     const checkExportPresence = (node) => {
       if (!missingExports) {

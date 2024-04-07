@@ -6,6 +6,7 @@ import isGlob from 'is-glob';
 import { Minimatch } from 'minimatch';
 import docsUrl from '../docsUrl';
 import importType from '../core/importType';
+import { getFilename } from '../context';
 
 const containsPath = (filepath, target) => {
   const relative = path.relative(target, filepath);
@@ -85,7 +86,7 @@ module.exports = {
     const options = context.options[0] || {};
     const restrictedPaths = options.zones || [];
     const basePath = options.basePath || process.cwd();
-    const currentFilename = context.getPhysicalFilename ? context.getPhysicalFilename() : context.getFilename();
+    const currentFilename = context.getPhysicalFilename ? context.getPhysicalFilename() : getFilename(context);
     const matchingZones = restrictedPaths.filter(
       (zone) => [].concat(zone.target)
         .map((target) => path.resolve(basePath, target))

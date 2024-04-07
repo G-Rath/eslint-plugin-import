@@ -5,7 +5,7 @@
 
 import minimatch from 'minimatch';
 import docsUrl from '../docsUrl';
-import { getSourceCode } from '../context';
+import { getScope, getSourceCode } from '../context';
 
 /**
  * @param {MemberExpression} memberExpression
@@ -109,7 +109,7 @@ module.exports = {
           return;
         }
 
-        const scopeVariables = context.getScope().variables;
+        const scopeVariables = getScope(context, node).variables;
         const namespaceVariable = scopeVariables.find((variable) => variable.defs[0].node === node);
         const namespaceReferences = namespaceVariable.references;
         const namespaceIdentifiers = namespaceReferences.map((reference) => reference.identifier);

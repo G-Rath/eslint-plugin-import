@@ -7,7 +7,7 @@ import isStaticRequire from '../core/staticRequire';
 import docsUrl from '../docsUrl';
 
 import debug from 'debug';
-import { getFilename } from '../context';
+import { getFilename, getScope } from '../context';
 const log = debug('eslint-plugin-import:rules:newline-after-import');
 
 //------------------------------------------------------------------------------
@@ -195,10 +195,12 @@ module.exports = {
       },
       'Program:exit'() {
         log('exit processing for', context.getPhysicalFilename ? context.getPhysicalFilename() : getFilename(context));
-        const scopeBody = getScopeBody(context.getScope());
-        log('got scope:', scopeBody);
 
         requireCalls.forEach((node, index) => {
+          // todo: this probably isn't correct...
+          const scopeBody = getScopeBody(getScope(context, node));
+          log('got scope:', scopeBody);
+
           const nodePosition = findNodeIndexInScopeBody(scopeBody, node);
           log('node position in scope:', nodePosition);
 

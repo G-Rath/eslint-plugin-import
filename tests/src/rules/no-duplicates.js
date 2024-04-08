@@ -467,11 +467,11 @@ import {x,y} from './foo'
         import {
           DEFAULT_FILTER_KEYS,
           BULK_DISABLED,
-
+        ${''}
           BULK_ACTIONS_ENABLED
         } from '../constants';
         import React from 'react';
-
+        ${''}
         const TestComponent = () => {
           return <div>
           </div>;

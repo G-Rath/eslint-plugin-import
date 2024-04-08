@@ -4,9 +4,9 @@ import semver from 'semver';
 
 export const usingFlatConfig = semver.major(eslintVersion) >= 9;
 
-export class FlatCompatRuleTester extends RuleTester {
+export class FlatCompatRuleTester {
   constructor(testerConfig) {
-    super(FlatCompatRuleTester._flatCompat(testerConfig));
+    this._tester = new RuleTester(FlatCompatRuleTester._flatCompat(testerConfig));
   }
 
   run(
@@ -14,7 +14,7 @@ export class FlatCompatRuleTester extends RuleTester {
     rule,
     tests,
   ) {
-    super.run(ruleName, rule, {
+    this._tester.run(ruleName, rule, {
       valid: tests.valid.map((t) => FlatCompatRuleTester._flatCompat(t)),
       invalid: tests.invalid.map((t) => FlatCompatRuleTester._flatCompat(t)),
     });

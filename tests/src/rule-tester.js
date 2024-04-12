@@ -31,7 +31,7 @@ export class FlatCompatRuleTester {
 
     for (const [key, value] of Object.entries(config)) {
       if (key === 'parser') {
-        obj.languageOptions.parser = require(value);
+        obj.languageOptions.parser = typeof value === 'string' ? require(value) : value;
 
         continue;
       }

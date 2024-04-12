@@ -4,6 +4,10 @@ import semver from 'semver';
 
 export const usingFlatConfig = semver.major(eslintVersion) >= 9;
 
+export function withoutAutofixOutput(test) {
+  return { ...test, output: usingFlatConfig ? null : test.code };
+}
+
 export class FlatCompatRuleTester {
   constructor(testerConfig) {
     this._tester = new RuleTester(FlatCompatRuleTester._flatCompat(testerConfig));
